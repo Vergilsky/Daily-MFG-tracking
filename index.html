@@ -3,30 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KLA Daily tracking</title>
+  <title>MFG Daily record</title>
   <style>
     :root {
-      --primary: #16a34a;
-      --primary-hover: #15803d;
-      --secondary: #2563eb;
-      --secondary-hover: #1d4ed8;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
       --bg: #f3f4f6;
-      --card-bg: #ffffff;
+      --card: #ffffff;
       --text: #1f2937;
-      --muted: #6b7280;
       --border: #d1d5db;
-      --danger: #dc2626;
     }
 
     * {
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
       margin: 0;
       padding: 20px 14px;
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--text);
       display: flex;
       justify-content: center;
@@ -35,185 +31,147 @@
     .container {
       width: 100%;
       max-width: 520px;
-      background: var(--card-bg);
+      background: var(--card);
       border-radius: 12px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
       padding: 24px 20px;
     }
 
-    .header {
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 14px;
-      margin-bottom: 20px;
-    }
-
-    .header h1 {
+    h1 {
       margin: 0 0 6px 0;
       font-size: 22px;
-      font-weight: 700;
-      color: #111827;
     }
 
-    .header p {
-      margin: 0;
+    p.sub {
+      margin: 0 0 20px 0;
       font-size: 13px;
-      color: var(--muted);
+      color: #6b7280;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 12px;
     }
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    label.field-title {
+    label.title {
       display: block;
       font-size: 14px;
       font-weight: 600;
-      margin-bottom: 8px;
-      color: #374151;
+      margin-bottom: 6px;
     }
 
     .req {
-      color: var(--danger);
+      color: #dc2626;
       margin-right: 3px;
     }
 
     input[type="text"],
     input[type="number"],
     input[type="date"],
-    select {
+    select,
+    textarea {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 15px;
-      background-color: #fff;
-      transition: border-color 0.2s;
     }
 
     input:focus,
-    select:focus {
+    select:focus,
+    textarea:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     }
 
-    .checkbox-grid {
+    .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
-    .checkbox-item {
+    .cb-item {
       display: flex;
       align-items: center;
-      padding: 9px 12px;
+      padding: 8px 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      cursor: pointer;
       font-size: 14px;
+      cursor: pointer;
       user-select: none;
-      transition: all 0.15s;
     }
 
-    .checkbox-item:hover {
+    .cb-item:hover {
       background-color: #f9fafb;
     }
 
-    .checkbox-item input {
+    .cb-item input {
       margin-right: 8px;
       width: 16px;
       height: 16px;
       accent-color: var(--primary);
     }
 
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 24px;
-    }
-
     button {
       width: 100%;
-      padding: 12px 16px;
+      padding: 13px;
       border: none;
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background-color 0.2s, transform 0.05s;
-    }
-
-    button:active {
-      transform: scale(0.99);
-    }
-
-    .btn-whatsapp {
-      background-color: var(--primary);
+      background: var(--primary);
       color: #ffffff;
+      cursor: pointer;
+      margin-top: 8px;
     }
 
-    .btn-whatsapp:hover {
-      background-color: var(--primary-hover);
+    button:hover {
+      background: var(--primary-hover);
     }
 
-    .btn-copy {
-      background-color: #eff6ff;
-      color: var(--secondary);
-      border: 1px solid #bfdbfe;
+    button:disabled {
+      background: #93c5fd;
+      cursor: not-allowed;
     }
 
-    .btn-copy:hover {
-      background-color: #dbeafe;
-    }
-
-    .toast {
+    .msg {
       display: none;
-      margin-top: 12px;
-      padding: 10px 12px;
+      margin-top: 14px;
+      padding: 12px;
       border-radius: 8px;
-      background-color: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-      font-size: 13px;
+      font-size: 14px;
       text-align: center;
     }
 
-    .preview-box {
-      margin-top: 18px;
-      padding: 12px;
-      background: #f9fafb;
-      border: 1px dashed #d1d5db;
-      border-radius: 8px;
-      font-size: 13px;
-      color: #4b5563;
-      white-space: pre-wrap;
-      line-height: 1.5;
+    .msg-success {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .msg-error {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="header">
-    <h1>KLA Daily tracking</h1>
-    <p>填写完成后可直接发送至 WhatsApp 或一键复制发到工作群</p>
-  </div>
+  <h1>MFG Daily record</h1>
+  <p class="sub">提交后数据将自动同步记录至 Notion 数据库</p>
 
-  <form id="trackingForm" onsubmit="return false;">
-    <!-- Date -->
+  <form id="notionForm">
     <div class="form-group">
-      <label class="field-title" for="trackDate"><span class="req">*</span>Date (日期)</label>
-      <input type="date" id="trackDate" required />
+      <label class="title" for="date"><span class="req">*</span>Date</label>
+      <input type="date" id="date" required />
     </div>
 
-    <!-- Team -->
     <div class="form-group">
-      <label class="field-title" for="team"><span class="req">*</span>Team</label>
+      <label class="title" for="team"><span class="req">*</span>Team</label>
       <select id="team" required>
         <option value="" disabled selected>请选择 Team...</option>
         <option value="Assembly">Assembly</option>
@@ -221,157 +179,108 @@
       </select>
     </div>
 
-    <!-- Name -->
     <div class="form-group">
-      <label class="field-title" for="userName"><span class="req">*</span>Name</label>
-      <input type="text" id="userName" placeholder="请输入您的姓名" required />
+      <label class="title" for="name"><span class="req">*</span>Name</label>
+      <input type="text" id="name" placeholder="请输入姓名" required />
     </div>
 
-    <!-- Product Model -->
     <div class="form-group">
-      <label class="field-title"><span class="req">*</span>Product Model (可多选)</label>
-      <div class="checkbox-grid" id="modelGroup">
-        <label class="checkbox-item"><input type="checkbox" name="model" value="P-series" /> P-series</label>
-        <label class="checkbox-item"><input type="checkbox" name="model" value="P170" /> P170</label>
-        <label class="checkbox-item"><input type="checkbox" name="model" value="D500/D600" /> D500/D600</label>
-        <label class="checkbox-item"><input type="checkbox" name="model" value="HRP" /> HRP</label>
-        <label class="checkbox-item"><input type="checkbox" name="model" value="Z-20" /> Z-20</label>
-        <label class="checkbox-item"><input type="checkbox" name="model" value="Z-300/Z-388" /> Z-300/Z-388</label>
+      <label class="title"><span class="req">*</span>Product Model (可多选)</label>
+      <div class="grid">
+        <label class="cb-item"><input type="checkbox" name="model" value="P-series" /> P-series</label>
+        <label class="cb-item"><input type="checkbox" name="model" value="P170" /> P170</label>
+        <label class="cb-item"><input type="checkbox" name="model" value="D500/D600" /> D500/D600</label>
+        <label class="cb-item"><input type="checkbox" name="model" value="HRP" /> HRP</label>
+        <label class="cb-item"><input type="checkbox" name="model" value="Z-20" /> Z-20</label>
+        <label class="cb-item"><input type="checkbox" name="model" value="Z-300/Z-388" /> Z-300/Z-388</label>
       </div>
     </div>
 
-    <!-- UTID -->
     <div class="form-group">
-      <label class="field-title" for="utid"><span class="req">*</span>UTID</label>
-      <input type="text" id="utid" placeholder="例如: 1024" required />
+      <label class="title" for="utid"><span class="req">*</span>UTID (数字)</label>
+      <input type="number" id="utid" placeholder="例如: 1024" required />
     </div>
 
-    <!-- Progress % -->
     <div class="form-group">
-      <label class="field-title" for="progress"><span class="req">*</span>Progress %</label>
+      <label class="title" for="progress"><span class="req">*</span>Progress %</label>
       <input type="number" id="progress" min="0" max="100" placeholder="0 - 100" required />
     </div>
 
-    <!-- 实时预览生成的文本 -->
-    <div class="preview-box" id="livePreview">填写上方内容后，此处将实时预览生成结果...</div>
-
-    <div class="btn-group">
-      <button type="button" class="btn-whatsapp" onclick="sendToWhatsApp()">
-        发送至 WhatsApp (+60 16-4146-623)
-      </button>
-      <button type="button" class="btn-copy" onclick="copyReport()">
-        一键复制内容（方便发到群里）
-      </button>
+    <div class="form-group">
+      <label class="title" for="remark">Remark (备注)</label>
+      <textarea id="remark" rows="2" placeholder="选填：异常或补充说明"></textarea>
     </div>
 
-    <div class="toast" id="toastMsg">✅ 已复制到剪贴板！请直接去 WhatsApp 群粘贴发送。</div>
+    <button type="submit" id="btn">提交记录至 Notion</button>
+    <div class="msg" id="msgBox"></div>
   </form>
 </div>
 
 <script>
-  // 目标 WhatsApp 号码（不含加号和空格）
-  const TARGET_PHONE = "60164146623";
+  // ================= 请在此处填入您的 Make.com Webhook 完整网址 =================
+  const WEBHOOK_URL = "请在此处粘贴您的_HTTPS_HOOK_EU1_MAKE_COM_完整网址";
+  // =========================================================================
 
   // 默认自动填入今天日期
-  const dateInput = document.getElementById("trackDate");
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, "0");
-  const dd = String(today.getDate()).padStart(2, "0");
-  dateInput.value = `${yyyy}-${mm}-${dd}`;
+  const d = new Date();
+  document.getElementById("date").value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
-  // 获取并校验表单数据
-  function getFormData(validate = true) {
-    const date = document.getElementById("trackDate").value;
-    const team = document.getElementById("team").value;
-    const name = document.getElementById("userName").value.trim();
-    const utid = document.getElementById("utid").value.trim();
-    const progress = document.getElementById("progress").value.trim();
+  document.getElementById("notionForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-    const checkedModels = Array.from(document.querySelectorAll('input[name="model"]:checked'))
-      .map(cb => cb.value);
-
-    if (validate) {
-      if (!date || !team || !name || checkedModels.length === 0 || !utid || progress === "") {
-        alert("请完整填写所有带 * 号的必填项（包括至少勾选一个 Product Model）！");
-        return null;
-      }
-      if (Number(progress) < 0 || Number(progress) > 100) {
-        alert("Progress % 请输入 0 到 100 之间的数字！");
-        return null;
-      }
+    const models = Array.from(document.querySelectorAll('input[name="model"]:checked')).map(cb => cb.value);
+    if (models.length === 0) {
+      alert("请至少勾选一个 Product Model！");
+      return;
     }
 
-    return {
-      date: date || "-",
-      team: team || "-",
-      name: name || "-",
-      models: checkedModels.length > 0 ? checkedModels.join(", ") : "-",
-      utid: utid || "-",
-      progress: progress !== "" ? `${progress}%` : "-"
+    const btn = document.getElementById("btn");
+    const msgBox = document.getElementById("msgBox");
+    btn.disabled = true;
+    btn.textContent = "正在同步至 Notion...";
+    msgBox.style.display = "none";
+
+    const payload = {
+      date: document.getElementById("date").value,
+      team: document.getElementById("team").value,
+      name: document.getElementById("name").value.trim(),
+      models: models,
+      utid: Number(document.getElementById("utid").value.trim()),
+      progress: Number(document.getElementById("progress").value.trim()),
+      remark: document.getElementById("remark").value.trim()
     };
-  }
 
-  // 格式化输出的打卡文本
-  function formatMessage(data) {
-    return `*KLA Daily tracking*\n` +
-           `📅 Date: ${data.date}\n` +
-           `👥 Team: ${data.team}\n` +
-           `👤 Name: ${data.name}\n` +
-           `📦 Product Model: ${data.models}\n` +
-           `🔢 UTID: ${data.utid}\n` +
-           `📊 Progress: ${data.progress}`;
-  }
-
-  // 实时更新底部预览框
-  function updatePreview() {
-    const data = getFormData(false);
-    document.getElementById("livePreview").textContent = formatMessage(data);
-  }
-
-  // 监听所有输入变化
-  document.getElementById("trackingForm").addEventListener("input", updatePreview);
-  document.getElementById("trackingForm").addEventListener("change", updatePreview);
-  updatePreview();
-
-  // 1. 直接跳转 WhatsApp 发送
-  function sendToWhatsApp() {
-    const data = getFormData(true);
-    if (!data) return;
-
-    const text = encodeURIComponent(formatMessage(data));
-    const waUrl = `https://wa.me/${TARGET_PHONE}?text=${text}`;
-    window.open(waUrl, "_blank");
-  }
-
-  // 2. 一键复制到剪贴板
-  async function copyReport() {
-    const data = getFormData(true);
-    if (!data) return;
-
-    const plainText = formatMessage(data);
     try {
-      await navigator.clipboard.writeText(plainText);
-      showToast();
-    } catch (err) {
-      // 兼容部分手机内置浏览器不支持 clipboard API 的情况
-      const textarea = document.createElement("textarea");
-      textarea.value = plainText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-      showToast();
-    }
-  }
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
 
-  function showToast() {
-    const toast = document.getElementById("toastMsg");
-    toast.style.display = "block";
-    setTimeout(() => {
-      toast.style.display = "none";
-    }, 4000);
-  }
+      if (!response.ok) {
+        throw new Error("HTTP status " + response.status);
+      }
+
+      msgBox.className = "msg msg-success";
+      msgBox.textContent = "✅ 已成功提交并同步至 Notion 数据库！";
+      msgBox.style.display = "block";
+
+      // 提交成功后清空本次填写内容（保留日期、Team 和姓名方便连续填写）
+      document.getElementById("utid").value = "";
+      document.getElementById("progress").value = "";
+      document.getElementById("remark").value = "";
+      document.querySelectorAll('input[name="model"]:checked').forEach(cb => cb.checked = false);
+    } catch (err) {
+      msgBox.className = "msg msg-error";
+      msgBox.textContent = "❌ 提交失败，请检查网络或确认 Webhook 链接是否正确。";
+      msgBox.style.display = "block";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "提交记录至 Notion";
+    }
+  });
 </script>
 
 </body>
