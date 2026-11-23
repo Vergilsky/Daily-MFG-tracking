@@ -202,6 +202,18 @@
     </div>
 
     <div class="form-group">
+      <label class="title" for="status"><span class="req">*</span>Status</label>
+      <select id="status" required>
+        <option value="" disabled selected>请选择 Status...</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+        <option value="Pending">Pending</option>
+        <option value="Hold">Hold</option>
+        <option value="Rework">Rework</option>
+      </select>
+    </div>
+
+    <div class="form-group">
       <label class="title" for="progress"><span class="req">*</span>Progress %</label>
       <input type="number" id="progress" min="0" max="100" placeholder="0 - 100" required />
     </div>
@@ -218,7 +230,7 @@
 
 <script>
   // ================= 请在此处填入您的 Make.com Webhook 完整网址 =================
-  const WEBHOOK_URL = "https://hook.eu1.make.com/k3vu2ezj7roxjxn2o3td58lvxf43jua5";
+  const WEBHOOK_URL = "https://hook.eu1.make.com/k3vu2ezj7roxjxn2o3td58lv";
   // =========================================================================
 
   // 默认自动填入今天日期
@@ -246,6 +258,7 @@
       name: document.getElementById("name").value.trim(),
       models: models,
       utid: Number(document.getElementById("utid").value.trim()),
+      status: document.getElementById("status").value,
       progress: Number(document.getElementById("progress").value.trim()),
       remark: document.getElementById("remark").value.trim()
     };
@@ -269,6 +282,7 @@
 
       // 提交成功后清空本次填写内容（保留日期、Team 和姓名方便连续填写）
       document.getElementById("utid").value = "";
+      document.getElementById("status").value = "";
       document.getElementById("progress").value = "";
       document.getElementById("remark").value = "";
       document.querySelectorAll('input[name="model"]:checked').forEach(cb => cb.checked = false);
